@@ -7,10 +7,10 @@ admin.initializeApp(functions.config().firebase)
 exports.onNewAccountCreated = functions.auth.user().onCreate(event => {
 
     const user = {
-        name: event.data.displayName || 'Noname',
+        name: event.displayName || 'Noname',
         devId: shortid.generate(),
-        photoUrl: event.data.photoURL || null
+        photoUrl: event.photoURL || null
     }
 
-    return admin.firestore().collection('users').doc(event.data.uid).set(user)
+    return admin.firestore().collection('users').doc(event.uid).set(user)
 })
